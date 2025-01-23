@@ -1,8 +1,4 @@
-# RSAEncryption Project Documentation
-
-[EN | PL](README.pl.md)
-
----
+[PL | EN](README.pl.md)
 
 ## Class Descriptions
 

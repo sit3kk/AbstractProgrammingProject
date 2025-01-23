@@ -1,5 +1,3 @@
-# RSAEncryption Project Documentation
-
 [PL | EN](README.md)
 
 ## Opis klas
