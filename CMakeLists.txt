@@ -33,6 +33,32 @@ endif()
 
 include_directories(${Boost_INCLUDE_DIRS})
 
+
+include(FetchContent)
+
+FetchContent_Declare(
+  nlohmann_json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.11.2 # Upewnij się, że to najnowsza wersja
+)
+
+FetchContent_MakeAvailable(nlohmann_json)
+
+# Linkowanie biblioteki nlohmann_json do projektu
+set(JSON_BIBLIOTEKA nlohmann_json::nlohmann_json)
+
+include(FetchContent)
+
+FetchContent_Declare(
+  nlohmann_json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.11.2 # Upewnij się, że to najnowsza wersja
+)
+
+FetchContent_MakeAvailable(nlohmann_json)
+
+# Linkowanie biblioteki nlohmann_json do projektu
+set(JSON_BIBLIOTEKA nlohmann_json::nlohmann_json)
 enable_testing()
 
 include(${CMAKE_SOURCE_DIR}/cmake/App.cmake)
