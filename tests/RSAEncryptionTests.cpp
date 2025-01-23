@@ -1,38 +1,34 @@
-#include <gtest/gtest.h>
+#define BOOST_TEST_MODULE RSAEncryptionTests
+#include <boost/test/included/unit_test.hpp>
 #include "RSAKeyGenerator.hpp"
 #include "RSAKeyExporter.hpp"
 #include "RSAEncryptor.hpp"
 #include "RSACertificateManager.hpp"
 
-TEST(RSAKeyGenerator, GeneratesKeys) {
+BOOST_AUTO_TEST_CASE(RSAKeyGenerator_GeneratesKeys) {
     using MyType = mpz_class;
     MyType min = mpz_class(1) << 512;
     MyType max = (mpz_class(1) << 513) - 1;
 
     auto [publicKey, privateKey] = RSAKeyGenerator<MyType>::generateKeys(min, max);
-    ASSERT_EQ(publicKey.first, 65537);
+    BOOST_CHECK_EQUAL(publicKey.first, 65537);
 
-    ASSERT_GT(publicKey.second, min * min);
+    BOOST_CHECK(publicKey.second > min * min);
 
-    ASSERT_GT(privateKey.first, 0);
-
-    std::cout << "Generated public key: (e=" << publicKey.first
-              << ", n=" << publicKey.second << ")" << std::endl;
-    std::cout << "Generated private key: (d=" << privateKey.first
-              << ", n=" << privateKey.second << ")" << std::endl;
+    BOOST_CHECK(privateKey.first > 0);
 }
 
-TEST(RSACertificateManager, CreatesValidCertificate) {
+BOOST_AUTO_TEST_CASE(RSACertificateManager_CreatesValidCertificate) {
     using MyType = mpz_class;
     auto [publicKey, privateKey] = RSAKeyGenerator<MyType>::generateKeys(mpz_class(1) << 512, (mpz_class(1) << 513) - 1);
 
     RSACertificate<MyType> cert("John Doe", publicKey, privateKey.first, publicKey.second);
-    ASSERT_EQ(cert.getOwnerName(), "John Doe");
-    ASSERT_EQ(cert.getPublicKey().first, publicKey.first);
-    ASSERT_EQ(cert.getPublicKey().second, publicKey.second);
+    BOOST_CHECK_EQUAL(cert.getOwnerName(), "John Doe");
+    BOOST_CHECK_EQUAL(cert.getPublicKey().first, publicKey.first);
+    BOOST_CHECK_EQUAL(cert.getPublicKey().second, publicKey.second);
 }
 
-TEST(RSACertificateManager, VerifiesSignature) {
+BOOST_AUTO_TEST_CASE(RSACertificateManager_VerifiesSignature) {
     using MyType = mpz_class;
     auto [publicKey, privateKey] = RSAKeyGenerator<MyType>::generateKeys(mpz_class(1) << 512, (mpz_class(1) << 513) - 1);
 
@@ -40,5 +36,5 @@ TEST(RSACertificateManager, VerifiesSignature) {
     MyType signature = RSAEncryptor<MyType>::generateSignature(message, privateKey.first, publicKey.second);
 
     bool valid = RSAEncryptor<MyType>::verifySignature(signature, message, publicKey.first, publicKey.second);
-    ASSERT_TRUE(valid);
+    BOOST_CHECK(valid);
 }

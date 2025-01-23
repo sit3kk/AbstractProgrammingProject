@@ -3,12 +3,11 @@ add_executable(RSAEncryptionTests
 )
 
 target_link_libraries(RSAEncryptionTests PRIVATE
-    RSAEncryptionLibrary
-    GTest::GTest
-    GTest::gtest_main
-    ${GMP_LIBRARY}
-    ${GMPXX_LIBRARY}
-    OpenSSL::Crypto
+    RSAEncryptionLibrary        
+    ${GMP_LIBRARY}           
+    ${GMPXX_LIBRARY}        
+    OpenSSL::Crypto     
+    Boost::unit_test_framework
 )
 
 target_compile_options(RSAEncryptionTests PRIVATE

@@ -25,7 +25,13 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 
 find_package(OpenSSL REQUIRED)
 
-find_package(GTest REQUIRED)
+find_package(Boost REQUIRED COMPONENTS unit_test_framework)
+
+if(NOT Boost_FOUND)
+    message(FATAL_ERROR "Boost not found. Ensure Boost is installed and includes the unit_test_framework component.")
+endif()
+
+include_directories(${Boost_INCLUDE_DIRS})
 
 enable_testing()
 
