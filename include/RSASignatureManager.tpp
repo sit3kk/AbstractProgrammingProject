@@ -18,7 +18,7 @@ std::string RSASignatureManager<T>::exportSignature(const T& signature, const st
         json j;
         j["message"] = message;
         j["signature"] = signature.get_str();
-        return j.dump(4); // Formatowanie z wcięciami
+        return j.dump(4);
     } else {
         throw std::invalid_argument("Unsupported format for signature export.");
     }
