@@ -1,5 +1,5 @@
 #include "Base64.hpp"
-
+#include <cstdint>
 #include "Base64.hpp"
 
 static const std::string base64_chars = 

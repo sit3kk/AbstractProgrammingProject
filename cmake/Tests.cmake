@@ -8,6 +8,7 @@ target_link_libraries(RSAEncryptionTests PRIVATE
     ${GMPXX_LIBRARY}        
     OpenSSL::Crypto     
     Boost::unit_test_framework
+    nlohmann_json::nlohmann_json
 )
 
 target_compile_options(RSAEncryptionTests PRIVATE
