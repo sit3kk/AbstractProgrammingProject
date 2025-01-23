@@ -2,6 +2,7 @@
 #define PRIME_UTILS_HPP
 
 #include <gmpxx.h>
+#include <chrono>
 
 template <typename T>
 concept IntegerType = requires(T a, T b) {

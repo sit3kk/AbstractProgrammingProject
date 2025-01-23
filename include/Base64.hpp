@@ -2,6 +2,7 @@
 #define BASE64_HPP
 
 #include <string>
+#include <cstdint>
 #include <vector>
 
 class Base64 {
